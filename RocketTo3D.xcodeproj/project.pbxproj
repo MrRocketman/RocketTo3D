@@ -6,11 +6,42 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXFileReference section */
+		1A6AF83B15B6269400860DDF /* Fins.scad */ = {isa = PBXFileReference; lastKnownFileType = text; path = Fins.scad; sourceTree = "<group>"; };
+		1A6AF83C15B6269E00860DDF /* NoseCone.scad */ = {isa = PBXFileReference; lastKnownFileType = text; path = NoseCone.scad; sourceTree = "<group>"; };
+		1A6AF83D15B6269E00860DDF /* Rocket.scad */ = {isa = PBXFileReference; lastKnownFileType = text; path = Rocket.scad; sourceTree = "<group>"; };
+		1A6AF83E15B6269E00860DDF /* Streamline Fin set.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Streamline Fin set.svg"; sourceTree = "<group>"; };
+		1A6AF83F15B6269E00860DDF /* Streamline Nose cone.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Streamline Nose cone.svg"; sourceTree = "<group>"; };
+		1A6AF84015B6269E00860DDF /* Variables.scad */ = {isa = PBXFileReference; lastKnownFileType = text; path = Variables.scad; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
 /* Begin PBXGroup section */
 		1A6AF83215B6268A00860DDF = {
 			isa = PBXGroup;
 			children = (
+				1A6AF84115B626B500860DDF /* OpenSCAD */,
+				1A6AF84215B626BF00860DDF /* Resources */,
 			);
+			sourceTree = "<group>";
+		};
+		1A6AF84115B626B500860DDF /* OpenSCAD */ = {
+			isa = PBXGroup;
+			children = (
+				1A6AF83B15B6269400860DDF /* Fins.scad */,
+				1A6AF83C15B6269E00860DDF /* NoseCone.scad */,
+				1A6AF83D15B6269E00860DDF /* Rocket.scad */,
+				1A6AF84015B6269E00860DDF /* Variables.scad */,
+			);
+			name = OpenSCAD;
+			sourceTree = "<group>";
+		};
+		1A6AF84215B626BF00860DDF /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				1A6AF83E15B6269E00860DDF /* Streamline Fin set.svg */,
+				1A6AF83F15B6269E00860DDF /* Streamline Nose cone.svg */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
