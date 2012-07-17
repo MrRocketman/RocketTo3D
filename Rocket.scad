@@ -6,7 +6,8 @@ include <Fins.scad>
 //bodyTube();
 //finCan();
 //finsForPrinting(finThickness = finThickness, finXSpacing = finLength  / 2, finYSpacing = finSemiSpan / 2, maxFinsInXDirection = 2, maxFinsInYDirection = 4, finLayout = [[1, 1], [1, 0], [1, 0], [1, 0]]);
-coupler();
+//coupler();
+centeringRing();
 
 module bodyTube(tubeLength = 100, tubeInsideDiameter = 28.96, tubeWallThickness = 0.885)
 {
@@ -58,7 +59,15 @@ module coupler(couplerOutsideDiameter = 28.96, couplerWallThickness = 1.0, coupl
     }
 }
 
-module centeringRing(centeringRingOutsideDiameter = 28.96, centeringRingInsideDiameter = 23.96, centeringRingThickness = 5.0)
+module centeringRing(centeringRingOutsideDiameter = 28.96, centeringRingInsideDiameter = 23.96, centeringRingThickness = 2.54)
 {
-    
+    difference()
+    {
+        cylinder(r = centeringRingOutsideDiameter / 2, h = centeringRingThickness);
+        
+        translate(v = [0, 0, -offsetMargin])
+        {
+            cylinder(r = centeringRingInsideDiameter / 2, h = centeringRingThickness + 2 * offsetMargin);
+        }
+    }
 }
