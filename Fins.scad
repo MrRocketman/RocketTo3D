@@ -15,13 +15,14 @@ module finPolygon()
     }
 }
 
-module finCan(finCanLength = 50.8, finCanInsideDiameter = 28.96, finCanWallThickness = 0.885, finCount = 3, launchLugInsideDiameter = 3, launchLugWallThickness = 0.5, launchLugPieceLength = 10, launchLugNumberOfPieces = 2, launchLugWallThicknessOffsetPercentage = 100)
+module finCan(finCanLength = finRootChordLength, finCanInsideDiameter = 28.96, finCanWallThickness = 0.885, finThickness = finThickness, finCount = 3, launchLugInsideDiameter = 4.8, launchLugWallThickness = 0.5, launchLugPieceLength = 10, launchLugNumberOfPieces = 2, launchLugWallThicknessOffsetPercentage = 50)
 {
     // Calculate some distances
     launchLugTotalLength = launchLugNumberOfPieces * launchLugPieceLength;
     launchLugTotalGapLength = finCanLength - launchLugTotalLength;
     launchLugNumberOfGaps = (launchLugNumberOfPieces - 1);
     gapBetweenLaunchLugPieces = launchLugTotalGapLength / (launchLugNumberOfPieces - 1);
+    finCanWallThickness = (finThroughTheWallMountDepth > 0.0 ? finThroughTheWallMountDepth : finCanWallThickness);
     
     difference()
     {
@@ -35,9 +36,9 @@ module finCan(finCanLength = 50.8, finCanInsideDiameter = 28.96, finCanWallThick
             {
                 rotate([0, 0, i * (360 / finCount)])
                 {
-                    translate(v = [finCanInsideDiameter / 2 + finCanWallThickness, 0, 0])
+                    translate(v = [finCanInsideDiameter / 2 + finCanWallThickness - (finThroughTheWallMountDepth > 0.0 ? finThroughTheWallMountDepth : 0), 0, 0])
                     {
-                        finForFinCan(finDXFFileName = finFileName);
+                        finForFinCan(finThickness = finThickness);
                     }
                 }
             }

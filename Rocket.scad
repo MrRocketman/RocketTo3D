@@ -4,10 +4,10 @@ include <Fins.scad>
 
 //translate(v = [0, 0, 32]) noseCone();
 //bodyTube();
-//finCan();
+finCan();
 //finsForPrinting(finThickness = finThickness, finXSpacing = finLength  / 2, finYSpacing = finSemiSpan / 2, maxFinsInXDirection = 2, maxFinsInYDirection = 4, finLayout = [[1, 1], [1, 0], [1, 0], [1, 0]]);
 //coupler();
-centeringRing();
+//centeringRing();
 
 module bodyTube(tubeLength = 100, tubeInsideDiameter = 28.96, tubeWallThickness = 0.885)
 {
