@@ -1,0 +1,3 @@
+This provides the easiets, most open-source way I've found to take your RockSim design (or a pencil sketch for that matter) and breaking out all of the prints to be 3D printed.
+
+The Fins and the nose cone are the trickest to convert. There is a step by step process for each in the Variables.scad file.
