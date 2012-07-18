@@ -11,12 +11,14 @@ include <HelperModules.scad>
 // A Test to show the fin data was imported properly
 //finForFinCan();
 
-//finCan();
+//finCan(addFins = false, finCanLength = 100, finCanInsideDiameter = 24.13, finCanWallThickness = 0.39 * 2);
+//coupler(couplerInsideDiameter = 24.13, couplerWallThickness = 0.39 * 2, couplerLength = 60);
+//bodyTube(bodyTubeInsideDiameter = 24.13, bodyTubeWallThickness = 0.39 * 2, bodyTubeLength = 100);
 //noseCone();
-
+//fin();
 
 // This makes a fin can. It needs to be refactored
-module finCan(finCanLength = finRootChordLength, finCanInsideDiameter = 28.96, finCanWallThickness = 0.885, finThickness = finThickness, finCount = 3, launchLugInsideDiameter = 4.8, launchLugWallThickness = 0.5, launchLugPieceLength = 10, launchLugNumberOfPieces = 2, launchLugWallThicknessOffsetPercentage = 50)
+module finCan(finCanLength = finRootChordLength, finCanInsideDiameter = 28.96, finCanWallThickness = 0.885, finThickness = finThickness, finCount = 3, addFins = true, launchLugInsideDiameter = 4.8, launchLugWallThickness = 0.5, launchLugPieceLength = 15, launchLugNumberOfPieces = 2, launchLugWallThicknessOffsetPercentage = 50)
 {
     // Calculate some distances
     launchLugTotalLength = launchLugNumberOfPieces * launchLugPieceLength;
@@ -33,13 +35,16 @@ module finCan(finCanLength = finRootChordLength, finCanInsideDiameter = 28.96, f
             cylinder(h = finCanLength, r = finCanInsideDiameter / 2 + finCanWallThickness);
             
             // Create the fins
-            for(i = [0 : finCount - 1])
+            if(addFins == true)
             {
-                rotate([0, 0, i * (360 / finCount)])
+                for(i = [0 : finCount - 1])
                 {
-                    translate(v = [finCanInsideDiameter / 2 + finCanWallThickness - (finThroughTheWallMountDepth > 0.0 ? finThroughTheWallMountDepth : 0), 0, 0])
+                    rotate([0, 0, i * (360 / finCount)])
                     {
-                        finOrientedForFinCan(finThickness = finThickness);
+                        translate(v = [finCanInsideDiameter / 2 + finCanWallThickness - (finThroughTheWallMountDepth > 0.0 ? finThroughTheWallMountDepth : 0), 0, 0])
+                        {
+                            finOrientedForFinCan(finThickness = finThickness);
+                        }
                     }
                 }
             }
@@ -64,6 +69,21 @@ module finCan(finCanLength = finRootChordLength, finCanInsideDiameter = 28.96, f
         translate(v = [0, 0, -offsetMargin])
         {
             cylinder(h = finCanLength + 2 * offsetMargin, r = finCanInsideDiameter / 2);
+        }
+        
+        // Create the fin throught the wall mount cutouts
+        if(addFins == false)
+        {
+            for(i = [0 : finCount - 1])
+            {
+                rotate([0, 0, i * (360 / finCount)])
+                {
+                    translate(v = [finCanInsideDiameter / 2 + finCanWallThickness - (finThroughTheWallMountDepth > 0.0 ? finThroughTheWallMountDepth : 0), 0, 0])
+                    {
+                        finOrientedForFinCan(finThickness = finThickness);
+                    }
+                }
+            }
         }
     }
 }

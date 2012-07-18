@@ -11,7 +11,7 @@
  * 10. Click the "Edit Paths By Nodes" button on the left toolbar
  * 11. Select the center line and hit delete on your keyboard
  * 12. Select the far right line (The bottom of the shoulder) And hit the "Insert new node button"
- * 13. Drag select all of the ponts on the bottom half of the nose cone except for the tip of the nose cone and the new node on the bottom of the shoulder. Delete these nodes.
+ * 13. Drag select all of the nodes on the bottom half of the nose cone except for the tip of the nose cone and the new node on the bottom of the shoulder. Delete these nodes.
  * 14. "Shift" select the nodes on the tip of the nose cone and the midpoint of the bottom of the shoulder
  * 15. Click the "Delete segment between nodes" button
  * 16. Click the "Join selected nodes with new segment" button to add back a straight segment

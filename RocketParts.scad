@@ -177,6 +177,7 @@ module noseCone(wallThickness = 1.17, addParachuteAttachmentHook = true, parachu
 // This module oriented an transaltes a fin for mounting on a body tube
 module fin(finThickness = 1)
 {
+    // Make the fin
     linear_extrude(height = finThickness)
     {
         finPolygon();

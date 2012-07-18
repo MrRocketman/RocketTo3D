@@ -1,3 +1,5 @@
+include <RocketParts.scad>
+
 // Don't mess with this unless you really know what you're doing.
 module noseConePolygon()
 {
@@ -40,10 +42,7 @@ module finOrientedForFinCan(finThickness = 1)
         // Rotate to the vertical position
         rotate(a = [90, 90, 0])
         {
-            linear_extrude(height = finThickness)
-            {
-                finPolygon();
-            }
+            fin(finThickness = finThickness);
         }
     }
 }

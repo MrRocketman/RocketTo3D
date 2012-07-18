@@ -3,6 +3,4 @@ This provides the easiets, most open-source way I've found to take your RockSim 
 The Fins and the nose cone are the trickest to convert. There is a step by step process for each in the Variables.scad file.
 
 TODO:
-2. Add Fin can creation with fin slots but no fins
-3. Add support for multiple fin sets
-1. Add an easy way to build the rocket (i.e. finCan(); bodyTube(); noseCone(); creates the whole rocket - translated for printing or for a 3D View)
+Add support for multiple fin sets
