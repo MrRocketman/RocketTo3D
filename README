@@ -6,3 +6,4 @@ TODO:
 Add Fin can creation with fin slots but no fins
 Fix Nose cone errors
 Add support for multiple fin sets
+Add an easy way to build the rocket (i.e. finCan(); bodyTube(); noseCone(); creates the whole rocket - translated for printing or for a 3D View)
