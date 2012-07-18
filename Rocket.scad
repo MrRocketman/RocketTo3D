@@ -11,11 +11,12 @@ include <Fins.scad>
 // A Test to show the fin data was imported properly
 //finForFinCan();
 
-finCan();
-//finsForPrinting(finThickness = finThickness, finXSpacing = finLength  / 2, finYSpacing = finSemiSpan / 2, maxFinsInXDirection = 2, maxFinsInYDirection = 4, finLayout = [[1, 1], [1, 0], [1, 0], [1, 0]]);
-//coupler();
-//centeringRing();
+//finCan();
+noseCone();
 
+// ********** These are the basic building block modules ************ //
+
+// This just makes a basic body tube
 module bodyTube(tubeLength = 100, tubeInsideDiameter = 28.96, tubeWallThickness = 0.885)
 {
     difference()
@@ -31,6 +32,7 @@ module bodyTube(tubeLength = 100, tubeInsideDiameter = 28.96, tubeWallThickness 
     }
 }
 
+// This just makes a basic coupler
 module coupler(couplerOutsideDiameter = 28.96, couplerWallThickness = 1.0, couplerLength = 57.92, centerMark = true)
 {
     centerMarkLength = 0.25;
@@ -68,6 +70,23 @@ module coupler(couplerOutsideDiameter = 28.96, couplerWallThickness = 1.0, coupl
     }
 }
 
+// This just create a simple round launch lug
+module launchLug(launchLugInsideDiameter = 4.8, launchLugWallThickness = 0.5, launchLugLength = 10)
+{
+    difference()
+    {
+        // Main Coupler Body
+        cylinder(r = launchLugInsideDiameter / 2 + launchLugWallThickness, h = launchLugLength);
+        
+        // Coupler Inside Cutout
+        translate(v = [0, 0, -offsetMargin])
+        {
+            cylinder(r = launchLugInsideDiameter / 2, h = launchLugLength + 2 * offsetMargin);
+        }
+    }
+}
+
+// This just creates a basic centering ring
 module centeringRing(centeringRingOutsideDiameter = 28.96, centeringRingInsideDiameter = 23.96, centeringRingThickness = 2.54)
 {
     difference()
@@ -83,23 +102,7 @@ module centeringRing(centeringRingOutsideDiameter = 28.96, centeringRingInsideDi
     }
 }
 
-module noseConePolygon()
-{
-    // Rotate to the proper orientation for a rotate_extrude
-    rotate(a = [180, 180, 90])
-    {
-        // X is the width of the svg, y is the height of the svg
-        translate(v = [-noseConeTotalLength / 2, noseConeWidth / 4, 0])
-        {
-            // Scale the nose cone since RockSim is dumb and doesn't export normal mm units
-            scale([25.4 / 90, -25.4 / 90, 1]) 
-            {
-                polygon(noseConePoints);
-            }
-        }
-    }
-}
-
+// This takes your noseCone data from Variables.scad and makes a nose cone
 module noseCone(wallThickness = 1.17, addParachuteAttachmentHook = true, parachuteAttachmentHookSize = 5.0)
 {
     scalePercentage = (noseConeWidth / 2 - wallThickness) / (noseConeWidth / 2);
@@ -124,7 +127,7 @@ module noseCone(wallThickness = 1.17, addParachuteAttachmentHook = true, parachu
                 }
             }
             
-            // Cutout plength of shoulder length so a clean bottom can be added back in
+            // Cutout plenty of shoulder length so a clean bottom can be added back in
             translate(v = [0, 0, -offsetMargin])
             {
                 cylinder(r = noseConeShoulderWidth / 2 - wallThickness, h = wallThickness + 2 * offsetMargin);
@@ -170,7 +173,7 @@ module noseCone(wallThickness = 1.17, addParachuteAttachmentHook = true, parachu
                             cylinder(r = parachuteAttachmentHookSize / 2, h = wallThickness + 2 * offsetMargin);
                         }
                         // Cut off the bottom of the cylinder
-                        translate(v = [-parachuteAttachmentHookSize - wallThickness - offsetMargin, -parachuteAttachmentHookSize - wallThickness - offsetMargin, -offsetMargin])
+                        translate(v = [-parachuteAttachmentHookSize - wallThickness - offsetMargin, -parachuteAttachmentHookSize - wallThickness - 2 * offsetMargin, -offsetMargin])
                         {
                             cube(size = [parachuteAttachmentHookSize * 2 + wallThickness * 2 + offsetMargin * 2, parachuteAttachmentHookSize + 2 * wallThickness + offsetMargin, wallThickness + 2 * offsetMargin]);
                         }
@@ -181,19 +184,9 @@ module noseCone(wallThickness = 1.17, addParachuteAttachmentHook = true, parachu
     }
 }
 
-module finPolygon()
-{
-    // X is the width of the svg, y is the height of the svg
-    translate(v = [finLength / 2, finSemiSpan / 2, 0])
-    {
-        // Scale the fin since RockSim is dumb and doesn't export normal mm units
-        scale([25.4 / 90, -25.4 / 90, 1]) 
-        {
-            polygon(finPoints);
-        }
-    }
-}
+// ****************** These are the secondary creation modules ****************** //
 
+// This makes a fin can. It needs to be refactored
 module finCan(finCanLength = finRootChordLength, finCanInsideDiameter = 28.96, finCanWallThickness = 0.885, finThickness = finThickness, finCount = 3, launchLugInsideDiameter = 4.8, launchLugWallThickness = 0.5, launchLugPieceLength = 10, launchLugNumberOfPieces = 2, launchLugWallThicknessOffsetPercentage = 50)
 {
     // Calculate some distances
@@ -292,18 +285,34 @@ module finsForPrinting(finThickness = 1, finCount = 4, finXSpacing = 25, finYSpa
     }
 }
 
-// This just create a simple round launch lug
-module launchLug(launchLugInsideDiameter = 4.8, launchLugWallThickness = 0.5, launchLugLength = 10)
+// Don't mess with this unless you really know what you're doing.
+module noseConePolygon()
 {
-    difference()
+    // Rotate to the proper orientation for a rotate_extrude
+    rotate(a = [180, 180, 90])
     {
-        // Main Coupler Body
-        cylinder(r = launchLugInsideDiameter / 2 + launchLugWallThickness, h = launchLugLength);
-        
-        // Coupler Inside Cutout
-        translate(v = [0, 0, -offsetMargin])
+        // X is the width of the svg, y is the height of the svg
+        translate(v = [-noseConeTotalLength / 2, noseConeWidth / 4, 0])
         {
-            cylinder(r = launchLugInsideDiameter / 2, h = launchLugLength + 2 * offsetMargin);
+            // Scale the nose cone since RockSim is dumb and doesn't export normal mm units
+            scale([25.4 / 90, -25.4 / 90, 1]) 
+            {
+                polygon(noseConePoints);
+            }
+        }
+    }
+}
+
+// Don't mess with this unless you really know what you're doing.
+module finPolygon()
+{
+    // X is the width of the svg, y is the height of the svg
+    translate(v = [finLength / 2, finSemiSpan / 2, 0])
+    {
+        // Scale the fin since RockSim is dumb and doesn't export normal mm units
+        scale([25.4 / 90, -25.4 / 90, 1]) 
+        {
+            polygon(finPoints);
         }
     }
 }
