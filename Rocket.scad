@@ -11,8 +11,6 @@ include <Fins.scad>
 // A Test to show the fin data was imported properly
 //finForFinCan();
 
-//translate(v = [0, 0, 32]) noseCone();
-//bodyTube();
 finCan();
 //finsForPrinting(finThickness = finThickness, finXSpacing = finLength  / 2, finYSpacing = finSemiSpan / 2, maxFinsInXDirection = 2, maxFinsInYDirection = 4, finLayout = [[1, 1], [1, 0], [1, 0], [1, 0]]);
 //coupler();
@@ -22,8 +20,10 @@ module bodyTube(tubeLength = 100, tubeInsideDiameter = 28.96, tubeWallThickness 
 {
     difference()
     {
+        // The main body tube cylinder
         cylinder(r = tubeInsideDiameter / 2 + tubeWallThickness, h = tubeLength);
         
+        // Cutout the inside to make it hollow
         translate(v = [0, 0, -offsetMargin])
         {
             cylinder(r = tubeInsideDiameter / 2, h = tubeLength + 2 * offsetMargin);
@@ -72,8 +72,10 @@ module centeringRing(centeringRingOutsideDiameter = 28.96, centeringRingInsideDi
 {
     difference()
     {
+        // The main centering ring cylinder
         cylinder(r = centeringRingOutsideDiameter / 2, h = centeringRingThickness);
         
+        // The center cutout
         translate(v = [0, 0, -offsetMargin])
         {
             cylinder(r = centeringRingInsideDiameter / 2, h = centeringRingThickness + 2 * offsetMargin);
@@ -89,6 +91,7 @@ module noseConePolygon()
         // X is the width of the svg, y is the height of the svg
         translate(v = [-noseConeTotalLength / 2, noseConeWidth / 4, 0])
         {
+            // Scale the nose cone since RockSim is dumb and doesn't export normal mm units
             scale([25.4 / 90, -25.4 / 90, 1]) 
             {
                 polygon(noseConePoints);
@@ -183,6 +186,7 @@ module finPolygon()
     // X is the width of the svg, y is the height of the svg
     translate(v = [finLength / 2, finSemiSpan / 2, 0])
     {
+        // Scale the fin since RockSim is dumb and doesn't export normal mm units
         scale([25.4 / 90, -25.4 / 90, 1]) 
         {
             polygon(finPoints);
@@ -227,6 +231,7 @@ module finCan(finCanLength = finRootChordLength, finCanInsideDiameter = 28.96, f
                     // Move the lug to the edge of the fin can + the offset
                     translate([finCanInsideDiameter / 2 + finCanWallThickness + launchLugInsideDiameter / 2 + (launchLugWallThicknessOffsetPercentage / 100) * launchLugWallThickness - offsetMargin, 0, i * gapBetweenLaunchLugPieces + i * launchLugPieceLength])
                     {
+                        // Create the launch lug
                         launchLug(launchLugWallThickness = launchLugWallThickness, launchLugInsideDiameter = launchLugInsideDiameter, launchLugLength = launchLugPieceLength);
                     }
                 }
@@ -241,10 +246,14 @@ module finCan(finCanLength = finRootChordLength, finCanInsideDiameter = 28.96, f
     }
 }
 
+// This module oriented an transaltes a fin for mounting on a body tube
 module finOrientedForFinCan(finThickness = 1)
 {
+    // Move it up so the rootChord is on the body tube.
+    // Move have the finThickness to get it positioned properly
     translate(v = [-offsetMargin, finThickness / 2, finRootChordLength])
     {
+        // Rotate to the vertical position
         rotate(a = [90, 90, 0])
         {
             linear_extrude(height = finThickness)
@@ -255,15 +264,20 @@ module finOrientedForFinCan(finThickness = 1)
     }
 }
 
+/* This module lays out the fins flat and groups them together. Use the finLayout variable to get specific layouts.
+ *
+ * e.g finsForPrinting(finThickness = finThickness, finXSpacing = 60, finYSpacing = 30, maxFinsInXDirection = 2, maxFinsInYDirection = 4, finLayout = [[1, 1], [1, 0], [1, 0], [1, 0]]);
+ * This above example will have two columns of fins like this:  F
+ *                                                              F
+ *                                                              F
+ *                                                              F F
+ */
 module finsForPrinting(finThickness = 1, finCount = 4, finXSpacing = 25, finYSpacing = 25, maxFinsInXDirection = 2, maxFinsInYDirection = 2, finLayout = [[1, 1], [1, 1]])
 {
     for(i = [0 : maxFinsInXDirection - 1])
     {
         for(i2 = [0 : maxFinsInYDirection - 1])
         {
-            //            echo("i2", i2);
-            //            echo("i", i);
-            //            echo("finLayout[][]:", finLayout[i2][i]);
             if(finLayout[i2][i] == 1 || finLayout == true)
             {
                 translate(v = [i * finXSpacing, i2 * finYSpacing, 0])
@@ -278,6 +292,7 @@ module finsForPrinting(finThickness = 1, finCount = 4, finXSpacing = 25, finYSpa
     }
 }
 
+// This just create a simple round launch lug
 module launchLug(launchLugInsideDiameter = 4.8, launchLugWallThickness = 0.5, launchLugLength = 10)
 {
     difference()
