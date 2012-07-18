@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		1A6AF83B15B6269400860DDF /* Fins.scad */ = {isa = PBXFileReference; lastKnownFileType = text; path = Fins.scad; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.c; };
-		1A6AF83C15B6269E00860DDF /* NoseCone.scad */ = {isa = PBXFileReference; lastKnownFileType = text; path = NoseCone.scad; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.c; };
 		1A6AF83D15B6269E00860DDF /* Rocket.scad */ = {isa = PBXFileReference; lastKnownFileType = text; path = Rocket.scad; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.c; };
 		1A6AF83F15B6269E00860DDF /* Nose Cone.svg */ = {isa = PBXFileReference; path = "Nose Cone.svg"; sourceTree = "<group>"; };
 		1A6AF84015B6269E00860DDF /* Variables.scad */ = {isa = PBXFileReference; lastKnownFileType = text; path = Variables.scad; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.c; };
@@ -30,8 +28,6 @@
 			children = (
 				1A6AF84015B6269E00860DDF /* Variables.scad */,
 				1A6AF83D15B6269E00860DDF /* Rocket.scad */,
-				1A6AF83C15B6269E00860DDF /* NoseCone.scad */,
-				1A6AF83B15B6269400860DDF /* Fins.scad */,
 				1A6AF84315B627F800860DDF /* README */,
 			);
 			name = OpenSCAD;
