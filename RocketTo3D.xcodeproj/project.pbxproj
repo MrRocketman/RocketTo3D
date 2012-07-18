@@ -12,6 +12,8 @@
 		1A6AF84015B6269E00860DDF /* Variables.scad */ = {isa = PBXFileReference; lastKnownFileType = text; path = Variables.scad; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.c; };
 		1A6AF84315B627F800860DDF /* README */ = {isa = PBXFileReference; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		1A6AF84515B62FA300860DDF /* Fins.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Fins.svg; sourceTree = "<group>"; };
+		1A6AF85815B63F1200860DDF /* RocketParts.scad */ = {isa = PBXFileReference; path = RocketParts.scad; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.c; };
+		1A6AF85915B6409E00860DDF /* HelperModules.scad */ = {isa = PBXFileReference; lastKnownFileType = text; path = HelperModules.scad; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.c; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -28,6 +30,8 @@
 			children = (
 				1A6AF84015B6269E00860DDF /* Variables.scad */,
 				1A6AF83D15B6269E00860DDF /* Rocket.scad */,
+				1A6AF85815B63F1200860DDF /* RocketParts.scad */,
+				1A6AF85915B6409E00860DDF /* HelperModules.scad */,
 				1A6AF84315B627F800860DDF /* README */,
 			);
 			name = OpenSCAD;
