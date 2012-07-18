@@ -2,20 +2,11 @@ include <Variables.scad>
 include <RocketParts.scad>
 include <HelperModules.scad>
 
-// A Test to show the nose cone was imported properly
-/*rotate_extrude(convexity = 10)
- {
- noseConePolygon();
- }*/
-
-// A Test to show the fin data was imported properly
-//finForFinCan();
-
-//finCan(addFins = false, finCanLength = 100, finCanInsideDiameter = 24.13, finCanWallThickness = 0.39 * 2);
-//coupler(couplerInsideDiameter = 24.13, couplerWallThickness = 0.39 * 2, couplerLength = 60);
-//bodyTube(bodyTubeInsideDiameter = 24.13, bodyTubeWallThickness = 0.39 * 2, bodyTubeLength = 100);
+//finCan(addFins = false, finCanLength = 100, finCanInsideDiameter = 24.13, finCanWallThickness = 0.40 * 2);
+//coupler(couplerInsideDiameter = 24.13, couplerWallThickness = 0.40 * 2, couplerLength = 60);
+//bodyTube(bodyTubeInsideDiameter = 24.13, bodyTubeWallThickness = 0.40 * 2, bodyTubeLength = 100);
 //noseCone();
-//fin();
+//fin(finThickness = 1.5);
 
 // This makes a fin can. It needs to be refactored
 module finCan(finCanLength = finRootChordLength, finCanInsideDiameter = 28.96, finCanWallThickness = 0.885, finThickness = finThickness, finCount = 3, addFins = true, launchLugInsideDiameter = 4.8, launchLugWallThickness = 0.5, launchLugPieceLength = 15, launchLugNumberOfPieces = 2, launchLugWallThicknessOffsetPercentage = 50)

@@ -2,17 +2,17 @@ include <Variables.scad>
 include <HelperModules.scad>
 
 // This just makes a basic body tube
-module bodyTube(tubeLength = 100, tubeInsideDiameter = 28.96, tubeWallThickness = 0.885)
+module bodyTube(bodyTubeLength = 100, bodyTubeInsideDiameter = 28.96, bodyTubeWallThickness = 0.885)
 {
     difference()
     {
         // The main body tube cylinder
-        cylinder(r = tubeInsideDiameter / 2 + tubeWallThickness, h = tubeLength);
+        cylinder(r = bodyTubeInsideDiameter / 2 + bodyTubeWallThickness, h = bodyTubeLength);
         
         // Cutout the inside to make it hollow
         translate(v = [0, 0, -offsetMargin])
         {
-            cylinder(r = tubeInsideDiameter / 2, h = tubeLength + 2 * offsetMargin);
+            cylinder(r = bodyTubeInsideDiameter / 2, h = bodyTubeLength + 2 * offsetMargin);
         }
     }
 }
@@ -21,7 +21,7 @@ module bodyTube(tubeLength = 100, tubeInsideDiameter = 28.96, tubeWallThickness 
 module coupler(couplerOutsideDiameter = 28.96, couplerWallThickness = 1.0, couplerLength = 28.96, centerMark = true)
 {
     centerMarkLength = 0.25;
-    centerMarkDepth = 0.15;
+    centerMarkDepth = 0.40;
     
     difference()
     {
@@ -93,9 +93,9 @@ module centeringRing(centeringRingOutsideDiameter = 28.96, centeringRingInsideDi
 }
 
 // This takes your noseCone data from Variables.scad and makes a nose cone
-module noseCone(wallThickness = 1.17, addParachuteAttachmentHook = true, parachuteAttachmentHookSize = 5.0)
+module noseCone(noseConeWallThickness = 0.4 * 2, addParachuteAttachmentHook = true, parachuteAttachmentHookSize = 5.0)
 {
-    scalePercentage = (noseConeWidth / 2 - wallThickness) / (noseConeWidth / 2);
+    scalePercentage = (noseConeWidth / 2 - noseConeWallThickness) / (noseConeWidth / 2);
     
     union()
     {
@@ -109,18 +109,21 @@ module noseCone(wallThickness = 1.17, addParachuteAttachmentHook = true, parachu
             }
             
             // Cutout the inside of the nose cone
-            rotate_extrude(convexity = 10)
+            translate(v = [0, 0, noseConeWallThickness / 2])
             {
-                scale([scalePercentage, scalePercentage, scalePercentage])
+                rotate_extrude(convexity = 10)
                 {
-                    noseConePolygon();
+                    scale([scalePercentage, scalePercentage, scalePercentage])
+                    {
+                        noseConePolygon();
+                    }
                 }
             }
             
             // Cutout plenty of shoulder length so a clean bottom can be added back in
             translate(v = [0, 0, -offsetMargin])
             {
-                cylinder(r = noseConeShoulderWidth / 2 - wallThickness, h = wallThickness + 2 * offsetMargin);
+                cylinder(r = noseConeShoulderWidth / 2 - noseConeWallThickness, h = noseConeWallThickness + 2 * offsetMargin);
             }
         }
         
@@ -129,14 +132,14 @@ module noseCone(wallThickness = 1.17, addParachuteAttachmentHook = true, parachu
         difference()
         {
             // Add back the bottom of the nose cone
-            cylinder(r = noseConeShoulderWidth / 2, h = wallThickness);
+            cylinder(r = noseConeShoulderWidth / 2, h = noseConeWallThickness);
             
             // Create the cutout for the parachuteHook
             if(addParachuteAttachmentHook)
             {
                 translate(v = [0, 0, -offsetMargin])
                 {
-                    cylinder(r = parachuteAttachmentHookSize / 2, h = wallThickness + 2 * offsetMargin);
+                    cylinder(r = parachuteAttachmentHookSize / 2, h = noseConeWallThickness + 2 * offsetMargin);
                 }
             }
         }
@@ -145,27 +148,27 @@ module noseCone(wallThickness = 1.17, addParachuteAttachmentHook = true, parachu
         if(addParachuteAttachmentHook)
         {
             // Move the hook on top of the bottom plate
-            translate(v = [0, wallThickness / 2, 0])
+            translate(v = [0, noseConeWallThickness / 2, 0])
             {
                 rotate(a = [90, 0, 0])
                 {
                     difference()
                     {
                         // Create the main cylinder
-                        translate(v = [0, wallThickness, 0])
+                        translate(v = [0, noseConeWallThickness, 0])
                         {
-                            cylinder(r = parachuteAttachmentHookSize / 2 + wallThickness, h = wallThickness);
+                            cylinder(r = parachuteAttachmentHookSize / 2 + noseConeWallThickness, h = noseConeWallThickness);
                         }
                         
                         // Main cylinder cutout
-                        translate(v = [0, wallThickness, -offsetMargin])
+                        translate(v = [0, noseConeWallThickness, -offsetMargin])
                         {
-                            cylinder(r = parachuteAttachmentHookSize / 2, h = wallThickness + 2 * offsetMargin);
+                            cylinder(r = parachuteAttachmentHookSize / 2, h = noseConeWallThickness + 2 * offsetMargin);
                         }
                         // Cut off the bottom of the cylinder
-                        translate(v = [-parachuteAttachmentHookSize - wallThickness - offsetMargin, -parachuteAttachmentHookSize - wallThickness - 2 * offsetMargin, -offsetMargin])
+                        translate(v = [-parachuteAttachmentHookSize - noseConeWallThickness - offsetMargin, -parachuteAttachmentHookSize - noseConeWallThickness - 2 * offsetMargin, -offsetMargin])
                         {
-                            cube(size = [parachuteAttachmentHookSize * 2 + wallThickness * 2 + offsetMargin * 2, parachuteAttachmentHookSize + 2 * wallThickness + offsetMargin, wallThickness + 2 * offsetMargin]);
+                            cube(size = [parachuteAttachmentHookSize * 2 + noseConeWallThickness * 2 + offsetMargin * 2, parachuteAttachmentHookSize + 2 * noseConeWallThickness + offsetMargin, noseConeWallThickness + 2 * offsetMargin]);
                         }
                     }
                 }
