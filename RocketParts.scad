@@ -18,7 +18,7 @@ module bodyTube(tubeLength = 100, tubeInsideDiameter = 28.96, tubeWallThickness 
 }
 
 // This just makes a basic coupler
-module coupler(couplerOutsideDiameter = 28.96, couplerWallThickness = 1.0, couplerLength = 57.92, centerMark = true)
+module coupler(couplerOutsideDiameter = 28.96, couplerWallThickness = 1.0, couplerLength = 28.96, centerMark = true)
 {
     centerMarkLength = 0.25;
     centerMarkDepth = 0.15;
@@ -53,6 +53,11 @@ module coupler(couplerOutsideDiameter = 28.96, couplerWallThickness = 1.0, coupl
             }
         }
     }
+}
+
+module bulkHead(bulkHeadOutsideDiameter = 28.96, bulkHeadLength = 28.96)
+{
+    cylinder(r = bulkHeadOutsideDiameter / 2, h = bulkHeadLength);
 }
 
 // This just create a simple round launch lug

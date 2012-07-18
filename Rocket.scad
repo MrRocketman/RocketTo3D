@@ -12,8 +12,7 @@ include <HelperModules.scad>
 //finForFinCan();
 
 //finCan();
-noseCone();
-
+//noseCone();
 
 
 // This makes a fin can. It needs to be refactored
