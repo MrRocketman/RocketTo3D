@@ -3,7 +3,7 @@ include <RocketParts.scad>
 include <HelperModules.scad>
 
 //finCan(addFins = false, finCanLength = 100, finCanInsideDiameter = 24.13, finCanWallThickness = 0.40 * 2);
-//coupler(couplerInsideDiameter = 24.13, couplerWallThickness = 0.40 * 2, couplerLength = 60);
+//coupler(couplerInsideDiameter = 24.13, couplerWallThickness = 0.40 * 2, couplerLength = 50, centerMark = false);
 //bodyTube(bodyTubeInsideDiameter = 24.13, bodyTubeWallThickness = 0.40 * 2, bodyTubeLength = 100);
 //noseCone();
 //fin(finThickness = 1.5);
