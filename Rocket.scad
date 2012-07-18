@@ -213,7 +213,7 @@ module finCan(finCanLength = finRootChordLength, finCanInsideDiameter = 28.96, f
                 {
                     translate(v = [finCanInsideDiameter / 2 + finCanWallThickness - (finThroughTheWallMountDepth > 0.0 ? finThroughTheWallMountDepth : 0), 0, 0])
                     {
-                        finForFinCan(finThickness = finThickness);
+                        finOrientedForFinCan(finThickness = finThickness);
                     }
                 }
             }
@@ -227,17 +227,7 @@ module finCan(finCanLength = finRootChordLength, finCanInsideDiameter = 28.96, f
                     // Move the lug to the edge of the fin can + the offset
                     translate([finCanInsideDiameter / 2 + finCanWallThickness + launchLugInsideDiameter / 2 + (launchLugWallThicknessOffsetPercentage / 100) * launchLugWallThickness - offsetMargin, 0, i * gapBetweenLaunchLugPieces + i * launchLugPieceLength])
                     {
-                        difference()
-                        {
-                            // Launch Lug Body
-                            cylinder(h = launchLugPieceLength, r = launchLugInsideDiameter / 2 + launchLugWallThickness);
-                            
-                            // Launch lug cutout
-                            translate(v = [0, 0, -offsetMargin])
-                            {
-                                cylinder(h = launchLugPieceLength + 2 * offsetMargin, r = launchLugInsideDiameter / 2);
-                            }
-                        }
+                        launchLug(launchLugWallThickness = launchLugWallThickness, launchLugInsideDiameter = launchLugInsideDiameter, launchLugLength = launchLugPieceLength);
                     }
                 }
             }
@@ -251,7 +241,7 @@ module finCan(finCanLength = finRootChordLength, finCanInsideDiameter = 28.96, f
     }
 }
 
-module finForFinCan(finThickness = 1)
+module finOrientedForFinCan(finThickness = 1)
 {
     translate(v = [-offsetMargin, finThickness / 2, finRootChordLength])
     {
@@ -284,6 +274,21 @@ module finsForPrinting(finThickness = 1, finCount = 4, finXSpacing = 25, finYSpa
                     }
                 }
             }
+        }
+    }
+}
+
+module launchLug(launchLugInsideDiameter = 4.8, launchLugWallThickness = 0.5, launchLugLength = 10)
+{
+    difference()
+    {
+        // Main Coupler Body
+        cylinder(r = launchLugInsideDiameter / 2 + launchLugWallThickness, h = launchLugLength);
+        
+        // Coupler Inside Cutout
+        translate(v = [0, 0, -offsetMargin])
+        {
+            cylinder(r = launchLugInsideDiameter / 2, h = launchLugLength + 2 * offsetMargin);
         }
     }
 }
