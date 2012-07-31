@@ -2,9 +2,9 @@ include <Variables.scad>
 include <RocketParts.scad>
 include <HelperModules.scad>
 
-//finCan(addFins = false, finCanLength = 100, finCanInsideDiameter = 24.13, finCanWallThickness = 0.40 * 2);
-//coupler(couplerInsideDiameter = 24.13, couplerWallThickness = 0.40 * 2, couplerLength = 50, centerMark = false);
-//bodyTube(bodyTubeInsideDiameter = 24.13, bodyTubeWallThickness = 0.40 * 2, bodyTubeLength = 100);
+//finCan(addFins = false, finCanLength = 100, finCanInsideDiameter = 24.23);
+coupler(couplerOutsideDiameter = 24.13, couplerWallThickness = 0.40 * 2, couplerLength = 60, centerMark = false);
+//bodyTube(bodyTubeInsideDiameter = 24.23, bodyTubeWallThickness = 0.40 * 2, bodyTubeLength = 100);
 //noseCone();
 //fin(finThickness = 1.5);
 
@@ -67,6 +67,7 @@ module finCan(finCanLength = finRootChordLength, finCanInsideDiameter = 28.96, f
         {
             for(i = [0 : finCount - 1])
             {
+                // Rotate to the proper fin number position axially
                 rotate([0, 0, i * (360 / finCount)])
                 {
                     translate(v = [finCanInsideDiameter / 2 + finCanWallThickness - (finThroughTheWallMountDepth > 0.0 ? finThroughTheWallMountDepth : 0), 0, 0])
